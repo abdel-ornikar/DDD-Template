@@ -33,6 +33,11 @@ jobs:
           service_account: 'shop-catalog-service@ornikar-fr-staging.iam.gserviceaccount.com'
           workload_identity_provider: 'projects/850636644051/locations/global/workloadIdentityPools/ornikar-fr-staging-wif-pool/providers/github-wif-provider'
 
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+        with:
+          install_components: 'gke-gcloud-auth-plugin'
+
       - name: greet
         run: |
           echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}" / ${{ env.SELECTED_ENV }}
