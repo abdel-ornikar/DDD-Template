@@ -1,4 +1,4 @@
-name: CI
+name: Artisan executor
 
 on:
   workflow_dispatch:
