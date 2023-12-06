@@ -16,12 +16,12 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SELECTED_ENV: ${{ github.event.inputs.environment }}
+      APP_ENV: ${{ github.event.inputs.environment }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - name: greet
         run: |
-          echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}" / ${{ env.SELECTED_ENV }}"
+          echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }} / ${{ env.SELECTED_ENV }}"
           echo "artisan is ${{ github.event.inputs.artisan }}" / ${{ inputs.artisan }}
