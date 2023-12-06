@@ -30,7 +30,7 @@ jobs:
         uses: 'google-github-actions/auth@v2'
         with:
           project_id: 'ornikar-fr-staging' # ornikar-fr-prod | ornikar-devfactory
-          service_account: 'istio-installer@ornikar-fr-staging.iam.gserviceaccount.com'
+          service_account: '850636644051-compute@developer.gserviceaccount.com'
           workload_identity_provider: 'projects/850636644051/locations/global/workloadIdentityPools/ornikar-fr-staging-wif-pool/providers/github-wif-provider'
 
       - name: 'Set up Cloud SDK'
