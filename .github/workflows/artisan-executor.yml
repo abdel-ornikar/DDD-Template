@@ -38,6 +38,18 @@ jobs:
         with:
           install_components: 'gke-gcloud-auth-plugin'
 
+      - name: Connect to cluster GKE
+        run: |
+          gcloud container clusters get-credentials staging-main --zone europe-west1-b --project ornikar-fr-staging
+          gcloud components install kubectl
+
+      - name: Context
+        run: |
+          echo kubectl config current-context
+
+      - name: Switch to apps namespace
+        run: kubectl config set-context --current --namespace=apps
+
       - name: greet
         run: |
           echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}" / ${{ env.SELECTED_ENV }}
