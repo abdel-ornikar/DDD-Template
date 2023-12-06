@@ -22,7 +22,7 @@ jobs:
       - name: Checkout 🐙
         uses: actions/checkout@v4
 
-      - name: Checkout 🐙
+      - name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v2'
         with:
           project_id: 'ornikar-fr-staging' # ornikar-fr-prod | ornikar-devfactory
