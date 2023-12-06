@@ -19,9 +19,18 @@ jobs:
       SELECTED_ENV: ${{ github.event.inputs.environment }}
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout 🐙
+        uses: actions/checkout@v4
+
+      - name: Checkout 🐙
+        uses: 'google-github-actions/auth@v2'
+        with:
+          project_id: 'ornikar-fr-staging' # ornikar-fr-prod | ornikar-devfactory
+          service_account: 'shop-catalog-service@ornikar-fr-staging.iam.gserviceaccount.com'
+          workload_identity_provider: 'projects/850636644051/locations/global/workloadIdentityPools/ornikar-fr-staging-wif-pool/providers/github-wif-provider'
 
       - name: greet
         run: |
           echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}" / ${{ env.SELECTED_ENV }}
           echo "artisan is ${{ github.event.inputs.artisan }}" / ${{ inputs.artisan }}
+          echo "project id is ${{ secrets.PROJECT_ID }}"
