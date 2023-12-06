@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      APP_ENV: ${{ github.event.inputs.environment }}
+      SELECTED_ENV: ${{ github.event.inputs.environment }}
 
     steps:
       - uses: actions/checkout@v2
