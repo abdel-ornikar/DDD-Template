@@ -10,8 +10,7 @@ on:
       artisan:
         required: true
         type: string
-        description: Artisan command to run
-        default: 'test:command --verbose'
+        description: Artisan command to run (test:command --verbose)
 jobs:
   build:
     runs-on: ubuntu-latest
