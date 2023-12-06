@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        description: Select the environment
+      artisan:
+        required: true
+        type: string
+        description: Artisan command to run
+        holder: 'fix:driving-pack-price --rollback'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: greet
+        run: |
+          echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}"
+          echo "artisan is ${{ github.event.inputs.artisan }}" / ${{ inputs.artisan }}
