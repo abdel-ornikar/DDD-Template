@@ -4,16 +4,20 @@ on:
   workflow_dispatch:
     inputs:
       environment:
+        required: true
         type: environment
         description: Select the environment
       artisan:
         required: true
         type: string
         description: Artisan command to run
-        holder: 'fix:driving-pack-price --rollback'
+        default: 'test:command --verbose'
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      APP_ENV: ${{ github.event.inputs.environment }}
 
     steps:
       - uses: actions/checkout@v2
