@@ -13,6 +13,10 @@ on:
         description: Artisan command to run (test:command --verbose)
 jobs:
   build:
+    permissions:
+      id-token: write
+      contents: read
+
     runs-on: ubuntu-latest
 
     env:
