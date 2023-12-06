@@ -23,5 +23,5 @@ jobs:
 
       - name: greet
         run: |
-          echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }} / ${{ env.SELECTED_ENV }}"
+          echo "environment is ${{ github.event.inputs.environment }} / ${{ inputs.environment }}" / ${{ env.SELECTED_ENV }}
           echo "artisan is ${{ github.event.inputs.artisan }}" / ${{ inputs.artisan }}
