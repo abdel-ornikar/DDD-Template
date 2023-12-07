@@ -16,12 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: europe-west1-docker.pkg.dev/ornikar-images/ornikar-images/php82:1.2.3
-      services:
-        - name: redis
-          alias: redis
-          image: redis:latest
-          ports:
-            - 6379:6379
+    services:
+      - name: redis
+        alias: redis
+        image: redis:latest
+        ports:
+          - 6379:6379
 
     env:
       SELECTED_ENV: ${{ github.event.inputs.environment }}
