@@ -13,11 +13,15 @@ on:
         description: Artisan command to run (test:command --verbose)
 jobs:
   build:
-    permissions:
-      id-token: write
-      contents: read
-
     runs-on: ubuntu-latest
+    container:
+      image: europe-west1-docker.pkg.dev/ornikar-images/ornikar-images/php82:1.2.3
+      services:
+        - name: redis
+          alias: redis
+          image: redis:latest
+          ports:
+            - 6379:6379
 
     env:
       SELECTED_ENV: ${{ github.event.inputs.environment }}
@@ -26,25 +30,23 @@ jobs:
       - name: Checkout 🐙
         uses: actions/checkout@v4
 
-      - name: 'Authenticate to Google Cloud'
-        uses: 'google-github-actions/auth@v2'
-        with:
-          project_id: 'ornikar-fr-staging' # ornikar-fr-prod | ornikar-devfactory
-          service_account: '850636644051-compute@developer.gserviceaccount.com'
-          workload_identity_provider: 'projects/850636644051/locations/global/workloadIdentityPools/ornikar-fr-staging-wif-pool/providers/github-wif-provider'
-
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v1'
-        with:
-          install_components: 'gke-gcloud-auth-plugin'
-
-      - name: Connect to cluster GKE
+      - name: Set up Laravel environment
         run: |
-          gcloud container clusters get-credentials staging-main --zone europe-west1-b --project ornikar-fr-staging
-          gcloud components install kubectl
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+          echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "REDIS_HOST=redis" >> .env
 
-      - name: Switch to apps namespace
-        run: kubectl config set-context --current --namespace=apps
+      - name: Install Composer Dependencies
+        run: |
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          composer install
+
+      - name: Execute Laravel Artisan Command
+        run: |
+          php artisan ${{ inputs.artisan_command }}
 
       - name: greet
         run: |
