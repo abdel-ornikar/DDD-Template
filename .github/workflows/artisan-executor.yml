@@ -16,10 +16,12 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: europe-west1-docker.pkg.dev/ornikar-images/ornikar-images/php82:1.2.3
+      ports:
+        - 9000:9000
     services:
-      - name: redis
-        alias: redis
+      redis:
         image: redis:latest
+        alias: redis
         ports:
           - 6379:6379
 
